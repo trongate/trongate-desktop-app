@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>Trongate</title>
+</head>
+<body>
+    <div class="logo" style="margin-top: 1em;">
+        trOnGAtE
+    </div> 
+    <div class="info vnum" id="vnum" style="color: cyan;">v1.0.004</div>
+    <div class="info txt" style="margin-top: 3em;">
+        <p id="intro-text">Please make sure you have PHP and your database up and running.</p>
+        <p>
+            <button id="the-button" onclick="initLetsRock()">Okay</button>
+        </p>
+    </div>
+    <style>
+    body {
+        background-image: url('images/trianglesbg.jpg');
+        background-color: #cccccc;
+        color: #eee;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    @font-face {
+      font-family: 'TrongateFont';
+      src: url('fonts/space_age.ttf')  format('truetype');
+    }
+
+    .logo {
+        font-family: 'TrongateFont';
+        font-size: 3em;
+    }  
+
+    p {
+        line-height: 1.6em;
+        font-size: 1.2em;
+        text-align: center;
+    } 
+
+    .info, button {
+        font-family: "Courier New", Courier, monospace;
+    }
+
+    .vnum {
+        font-size: 1.4em;
+    }
+
+    .txt {
+        text-align: left;
+        width: 90%;
+        margin: 0 auto;
+    }  
+
+    .infinity {
+        color: gold;
+        font-size: 1.7em;
+        top: 4px;
+        position: relative;
+    }
+
+    button {
+        margin-top: 1em;
+        padding: 0.6em 1em;
+        font-size: 1em;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #ddd;
+        text-transform: uppercase;
+        border: 1px #333 solid;
+        color: #333;
+    }
+
+    button:hover {
+        background-color: white;
+        color: #000;
+    }
+
+    .blink_me {
+      animation: blinker 1s linear infinite;
+      color: white;
+    }
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+    </style>
+    <script>
+    const { ipcRenderer } = require('electron')
+    var body = document.getElementsByTagName('body')[0];
+    var originalPageContent = body.innerHTML;
+
+    function closeTrongate() {
+        ipcRenderer.send('online-status-channel', 'offline');
+    }
+
+    function initLetsRock() {
+        document.getElementById('the-button').remove();
+        document.getElementById('intro-text').innerHTML = '<span class="blink_me">Viva la revolución!</span>'
+        ipcRenderer.send('online-status-channel', 'rock');
+    }
+
+    const respondToStatus = () => {
+        if (navigator.onLine) {
+            respondToOnline()
+        } else {
+            respondToOffline()
+        }
+    }
+
+    function respondToOffline() {
+        var vnumEl = document.getElementById('vnum');
+        vnumEl.innerHTML = '<span style="color: red; font-weight: bold;">Offline</span>'
+        var targetEl = document.getElementById('intro-text');
+        targetEl.innerHTML = 'Please connect to the internet. If that\'s not possible just now then unfortunately you\'ll have to quit and try again later.'
+        var theBtn = document.getElementById('the-button');
+        theBtn.innerHTML = 'Quit';
+        theBtn.setAttribute('onclick', 'closeTrongate()');
+    }
+
+    function respondToOnline() {
+        body.innerHTML = originalPageContent;
+    }
+
+    document.querySelector('body').addEventListener('keydown', function(event) {
+        var code = event.keyCode || event.which;
+
+        if (code === 13) {  //return
+            event.preventDefault();
+            var theBtn = document.getElementById('the-button');
+            theBtn.click();
+        }
+
+    });
+
+    window.addEventListener('online', respondToStatus)
+    window.addEventListener('offline', respondToStatus)
+
+    respondToStatus();
+    </script>
+</body>
+</html>

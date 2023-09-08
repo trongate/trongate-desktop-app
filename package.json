@@ -1,0 +1,41 @@
+{
+  "name": "Trongate",
+  "version": "v1.0.004",
+  "description": "Build enterprise apps in minutes, not months!",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Connelly",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^13.1.2",
+    "typescript": "^3.7.4"
+  },
+  "dependencies": {
+    "download": "^8.0.0",
+    "extract-zip": "^1.6.7",
+    "fs-extra": "^8.0.1",
+    "latest": "^0.2.0",
+    "mariadb": "^2.1.5",
+    "mysql-import": "^3.0.6",
+    "normalize-url": "^6.0.1",
+    "request": "^2.88.2"
+  },
+  "build": {
+    "appId": "io.trongate",
+    "copyright": "Copyright 2019 David Connelly",
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": "dmg",
+      "icon": "build/icon.png.icns"
+    },
+    "win": {
+      "target": "zip"
+    },
+    "linux": {
+      "category": "Development",
+      "target": "appImage"
+    }
+  }
+}
