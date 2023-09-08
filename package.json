@@ -1,6 +1,6 @@
 {
   "name": "Trongate",
-  "version": "v1.0.004",
+  "version": "v1.0.005",
   "description": "Build enterprise apps in minutes, not months!",
   "main": "main.js",
   "scripts": {

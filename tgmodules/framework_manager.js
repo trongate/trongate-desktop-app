@@ -621,6 +621,24 @@ module.exports = {
             throw err
         })
 
+        //attempt execute starter SQL if exists
+        var starterSqlFilePath = appPath + path.sep + 'modules' + path.sep + 'welcome' + path.sep + 'setup.sql';
+        await db_manager.sqlImport(starterSqlFilePath, JSON.parse(dbSettings)).catch((err) => {
+            console.error('Error importing SQL file:', err);
+        });
+
+        //attempt delete starter SQL if exists
+        await file_manager.ditchFile(starterSqlFilePath).catch((err) => {
+            throw err;
+        });
+        
+        //automatically set the permissions for the uploads folder on Trongate pages
+        var  imgUploadsDir = appPath + path.sep + 'modules' + path.sep + 'trongate_pages' + path.sep + 'assets' + path.sep + 'images' + path.sep + 'uploads';
+        await file_manager.chmodFolderRecursive(imgUploadsDir, '0777')
+        .catch((err) => {
+            throw err
+        })
+
         //settingsFilePath  
         var codingPrefs = userSettings.codingPrefs
         var includeAdminLogin = codingPrefs.includeAdminLogin
