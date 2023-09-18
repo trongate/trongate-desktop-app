@@ -631,7 +631,7 @@ module.exports = {
         await file_manager.ditchFile(starterSqlFilePath).catch((err) => {
             throw err;
         });
-        
+  
         //automatically set the permissions for the uploads folder on Trongate pages
         var  imgUploadsDir = appPath + path.sep + 'modules' + path.sep + 'trongate_pages' + path.sep + 'assets' + path.sep + 'images' + path.sep + 'uploads';
         await file_manager.chmodFolderRecursive(imgUploadsDir, '0777')

@@ -4,12 +4,16 @@
   "description": "Build enterprise apps in minutes, not months!",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "electron:mac": "electron-builder --mac",
+    "electron:win": "electron-builder --win",
+    "electron:linux": "electron-builder --linux"
   },
   "author": "David Connelly",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^13.1.2",
+    "electron": "^26.2.1",
+    "electron-builder": "^24.6.4",
     "typescript": "^3.7.4"
   },
   "dependencies": {
@@ -27,7 +31,10 @@
     "copyright": "Copyright 2019 David Connelly",
     "mac": {
       "category": "public.app-category.developer-tools",
-      "target": "dmg",
+      "target": [
+        "dmg",
+        "dmg"
+      ],
       "icon": "build/icon.png.icns"
     },
     "win": {
