@@ -4,7 +4,7 @@
   "description": "Build enterprise apps in minutes, not months!",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
     "electron:mac": "electron-builder --mac",
     "electron:win": "electron-builder --win",
     "electron:linux": "electron-builder --linux"
@@ -38,7 +38,7 @@
       "icon": "build/icon.png.icns"
     },
     "win": {
-      "target": "zip"
+      "target": "nsis"
     },
     "linux": {
       "category": "Development",

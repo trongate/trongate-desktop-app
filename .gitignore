@@ -6,7 +6,9 @@
 _junk/
 
 # Node artifact files
+package-lock.json
 dist/
+node_modules/
 
 # Compiled Java class files
 *.class
