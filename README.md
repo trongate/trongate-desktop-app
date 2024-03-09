@@ -141,7 +141,7 @@
   - Electron v27.3.5 (auto installed as dev dependancy)
   - Electron Builder v24.13.3 (auto installed as dev dependancy)
 
-<p><i>Note: the versions above are a starting point that DC used at the time of creating the Desktop App - You can use later versions but please alway match you Electron version with the correct Node version - https://releases.electronjs.org/</i></p>
+<p><i>Note: the versions above were bumped up to the latest stable versions, which are close to what DC used at the time of creating the Desktop App - You can use later versions but please alway match the Electron version with the correct Node version - https://releases.electronjs.org/ use the Node Version manager to swap Node versions</i></p>
 
 `npm install`
 
