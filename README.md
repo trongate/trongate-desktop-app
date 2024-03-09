@@ -4,7 +4,7 @@
   <h1>Break the rules, use Trongate</h1>
   
   <h3>
-   GitHub stars are the metric by which the success of frameworks gets measured. We need 1,200 GitHub stars to make Trongate a top ten PHP framework. If Trongate becomes a top ten PHP framework, it will be one of the most electrifying events in the history of PHP! 
+   GitHub stars are the metric by which the success of frameworks gets measured. We need 1,200 GitHub stars to make Trongate a top-ten PHP framework. If Trongate becomes a top ten PHP framework, it will be one of the most electrifying events in the history of PHP! 
   </h3>
 
 <!-- Badges -->
@@ -73,7 +73,7 @@
 <div align="left"> 
   <p>The Trongate Desktop App is an Electron-based application designed to streamline development with the Trongate PHP framework. It offers a range of features to enhance productivity and simplify the development process.</p>
   <p>The Trongate framework was built with a love of pure PHP and a belief that PHP is best when it's easy, stable, and fast. It actively rejects PSR-4 auto-loading, Composer, Packagist, rewrite culture, certification, and all forms of bureaucracy.</p>
-  <p>The Trongate framework is free, as is the desktop app, and they always will be. That's a promise!</p>
+  <p>The Trongate framework is free, as is the desktop app, and it always will be. That's a promise!</p>
 </div>
 
 <!-- Features -->
@@ -83,7 +83,7 @@
 <details>
   <summary>Create a new Trongate app</summary>
   <p>
-    No command line. No Git. No 'Composer dot phar'. No  Yaml. No Packagist. Trongate installs itself. Simply download the free Trongate desktop app and set up entire database driven apps in seconds!
+    No command line. No Git. No 'Composer dot phar'. No  Yaml. No Packagist. Trongate installs itself. Simply download the free Trongate desktop app and set up entire database-driven apps in seconds!
   </p>
 </details>
 <details>
@@ -135,13 +135,13 @@
 <p>Have MariaDB or MySQL installed and running, either with Xampp or similar <i>(note some people have had connection issues with MySQL on a Mac - usually solved with permission fixes)</i></p>
 
 <h3>Develop and/ or build the Desktop App</h3>
-<p>Ensure Nodejs is installed, clone this repo.  Change directory into it and run this command to install the 'Node Modules' needed</p>
+<p>Ensure Nodejs is installed, clone this repo.  Change the directory into it and run this command to install the 'Node Modules' needed</p>
 
 - Node.js v18.17.1 and npm 9.6.7 installed
-  - Electron v27.3.5 (auto installed as dev dependancy)
-  - Electron Builder v24.13.3 (auto installed as dev dependancy)
+  - Electron v27.3.5 (auto-installed as dev dependency)
+  - Electron Builder v24.13.3 (auto-installed as dev dependency)
 
-<p><i>Note: the versions above were bumped up to the latest stable versions, which are close to what DC used at the time of creating the Desktop App - You can use later versions but please alway match the Electron version with the correct Node version - https://releases.electronjs.org/, also use the 'Node Version manager' at https://github.com/nvm-sh/nvm to swap Node versions `choco install nvm` on Windows.</i></p>
+<p><i>Note: the versions above were bumped up to the latest stable versions, which are close to what DC used at the time of creating the Desktop App (Electron 26.2.1 and Node 18.16.1) - You can use later versions but please always match the Electron version with the correct Node version - https://releases.electronjs.org/, also use the 'Node Version manager' at https://github.com/nvm-sh/nvm to swap Node versions `choco install nvm` on Windows.</i></p>
 
 `npm install`
 
@@ -151,7 +151,7 @@
 
 <p>or install Electron globally</p>
 
-`npm install electron@26.2.1 -g`
+`npm install electron@27.3.5 -g`
 
 <p>and run it like this</p>
 
@@ -181,7 +181,7 @@ package-lock.json
 Edit 'package.json' "win": {"target": "zip"}
 
 - change output to a zip file > set 'target' to 'zip'
-- change output as a self installer - note: both will install to %localAppData%\Programs\Trongate\
+- change output as a self-installer - note: both will install to %localAppData%\Programs\Trongate\
   - (exe) > set 'target' to 'nsis'
   - (msi) > set 'target' to 'msi'
 
