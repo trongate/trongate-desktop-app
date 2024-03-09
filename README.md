@@ -10,11 +10,11 @@
 <!-- Badges -->
 <p>
   <a href="https://www.php.net/">
-    <img src="https://img.shields.io/badge/Electron.js-v26.2.1%2B-777BB4"
+    <img src="https://img.shields.io/badge/Electron.js-v27.3.5-777BB4"
     alt="Nodejs and Electron required" />
   </a>
   <a href="https://www.php.net/">
-    <img src="https://img.shields.io/badge/Node.js-v18.16.1%2B-777BB4"
+    <img src="https://img.shields.io/badge/Node.js-v18.17.1-777BB4"
     alt="Nodejs and Electron required" />
   </a>
   <a href="https://github.com/trongate/trongate-desktop-app/graphs/contributors">
@@ -78,12 +78,12 @@
 
 <!-- Features -->
 
-### :dart: Features
+### :dart: Features <span style="color: pink;"><i>(click to reveal)</i></span>
 
 <details>
-  <summary>Automatic Installer</summary>
+  <summary>Create a new Trongate app</summary>
   <p>
-    No command line. No Git. No 'Composer dot phar'. No Yaml. No Packagist. Trongate installs itself. Simply download the free Trongate desktop app and set up entire database driven apps in seconds!
+    No command line. No Git. No 'Composer dot phar'. No  Yaml. No Packagist. Trongate installs itself. Simply download the free Trongate desktop app and set up entire database driven apps in seconds!
   </p>
 </details>
 <details>
@@ -127,24 +127,27 @@
 
 ## :toolbox: Getting Started
 
-<!-- Prerequisites -->
+<h3>Create Trongate apps</h3>
 
-### :bangbang: Prerequisites
+- The Trongate Desktop App can be downloaded for Mac, Windows, and Linux
+  - [from the Trongate website](https://trongate.io/download)
 
-<p><i>To develop and/ or build the Desktop App</i></p>
+<p>Have MariaDB or MySQL installed and running, either with Xampp or similar <i>(note some people have had connection issues with MySQL on a Mac - usually solved with permission fixes)</i></p>
 
-- Node.js v18.16.1 and npm 9.5.1 installed
-- Electron v26.2.1
-- Electron Builder v24.6.4
-
-<h3>To develop and/ or build the Desktop App</h3>
+<h3>Develop and/ or build the Desktop App</h3>
 <p>Ensure Nodejs is installed, clone this repo.  Change directory into it and run this command to install the 'Node Modules' needed</p>
+
+- Node.js v18.17.1 and npm 9.6.7 installed
+  - Electron v27.3.5 (auto installed as dev dependancy)
+  - Electron Builder v24.13.3 (auto installed as dev dependancy)
+
+<p><i>Note: the versions above are a starting point that DC used at the time of creating the Desktop App - You can use later versions but please alway match you Electron version with the correct Node version - https://releases.electronjs.org/</i></p>
 
 `npm install`
 
 <p>To run the Desktop app from the downloaded repository</p>
 
-`npm run start`
+`npm run start` or `npx electron .`
 
 <p>or install Electron globally</p>
 
@@ -154,21 +157,41 @@
 
 `electron .`
 
-<p><i>To create Trongate apps</i></p>
+<p>Create a .gitignore file if you intend to post pull requests</p>
 
-- Trongate Desktop App downloaded from [Trongate website](https://trongate.io/download)
+```
+# DC stuff
+_junk/
 
-<!-- Installation -->
+# Node artifact files
+dist/
+node_modules/
+package-lock.json
 
-### :gear: Installation
+# Git files
+.gitignore
+```
 
-The Trongate Desktop App can be downloaded for Mac, Windows, and Linux from the [Trongate website](https://trongate.io/download).
+## Compile the Desktop App
 
-<!-- Usage -->
+### Windows
 
-## :eyes: Usage
+`npx electron-builder -w` or `npm run electron:win`
 
-Coming soon.
+Edit 'package.json' "win": {"target": "zip"}
+
+- change output to a zip file > set 'target' to 'zip'
+- change output as a self installer - note: both will install to %localAppData%\Programs\Trongate\
+  - (exe) > set 'target' to 'nsis'
+  - (msi) > set 'target' to 'msi'
+
+### Mac
+
+`npx electron-builder -m` or `npm run electron:mac`
+
+### Linux
+
+`npx electron-builder -l` or `npm run electron:linux`
 
 <!-- Contributing -->
 

@@ -12,8 +12,8 @@
   "author": "David Connelly",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^26.2.1",
-    "electron-builder": "^24.6.4",
+    "electron": "^27.3.5",
+    "electron-builder": "^24.13.3",
     "typescript": "^3.7.4"
   },
   "dependencies": {
