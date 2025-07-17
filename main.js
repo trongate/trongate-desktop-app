@@ -1,11 +1,11 @@
 const { app, BrowserWindow, Tray, Menu, ipcMain, screen, dialog, nativeImage } = require('electron')
 const os = require("os")
 const path = require('path')
-const apiUrl = 'http://localhost/trongate_live5/' + 'desktop_app_api'
-//const apiUrl = 'https://trongate.io/' + 'desktop_app_api';
+//const apiUrl = 'http://localhost/trongate_live5/' + 'desktop_app_api'
+const apiUrl = 'https://trongate.io/' + 'desktop_app_api';
 const thisVersion = 'v1.0.005';
-const openDevTools = true;
-const showHttpFeedback = true;
+const openDevTools = false;
+const showHttpFeedback = false;
 var monitorWidth
 var monitorHeight
 const db_manager = require("./tgmodules/db_manager.js")
