@@ -214,59 +214,81 @@ module.exports = {
     },
 
     updateFramework: async (args) => {
+        // Start off by downloading the latest version of the framework
+        var downloadUrl = args.source;
+        var extractedFolderName = args.extractedFolderName;
+        var downloadedFileName = extractedFolderName + '.zip';
 
-        //start off by downloading the latest version of the framework to the 'assets' directory
-        var downloadUrl = args.source
-        var extractedFolderName = args.extractedFolderName
-        var downloadedFileName = extractedFolderName + '.zip'
+        // Download the zip file
+        var downloadedZipFilePath = await file_manager.downloadThing(downloadUrl, assetsDir, downloadedFileName);
 
-        var downloadedZipFilePath = await file_manager.downloadThing(downloadUrl, assetsDir, downloadedFileName).catch((err) => {
-            throw err;
-        })
+        // Extract the contents of the newly downloaded zip file
+        await file_manager.extractThing(downloadedZipFilePath, assetsDir);
 
-        await file_manager.extractThing(downloadedZipFilePath, assetsDir).catch((err) => {
-            throw err;
-        })
+        // Delete the zip file
+        await file_manager.ditchFile(downloadedZipFilePath);
 
-        await file_manager.ditchFile(downloadedZipFilePath).catch((err) => {
-            throw err;
-        })
+        var localFrameworkPath = args.localFrameworkPath;
+        var rubbishExtractedFolderName = path.join(assetsDir, args.extractedFolderName);
 
-        //clarify paths to engine and main license file on targetLocalFramework
-        var localFrameworkPath = args.localFrameworkPath
-        var targetLocalFrameworkEnginePath = localFrameworkPath + path.sep + 'engine'
-        var targetLocalFrameworkMainDirLicensePath = localFrameworkPath + path.sep + 'license.txt'
+        // Always update 'engine' directory and license files
+        await updateEngineAndLicense(rubbishExtractedFolderName, localFrameworkPath);
 
-        //clarify paths to engine and main license file on the downloaded Framework
-        var rubbishExtractedFolderName = assetsDir + path.sep + args.extractedFolderName
-        var downloadedEngineFolder = rubbishExtractedFolderName + path.sep + 'engine'
-        var downloadedMainDirLicensePath = rubbishExtractedFolderName + path.sep + 'license.txt'
+        // Handle user selections
+        if (args.userSelections) {
+            const userSelections = JSON.parse(args.userSelections);
+            await updateSelectedItems(rubbishExtractedFolderName, localFrameworkPath, userSelections);
+        }
 
-        //delete main license file and engine on targetLocalFramework
-        await file_manager.ditchFile(targetLocalFrameworkMainDirLicensePath).catch((err) => {
-            throw err;
-        })
+        // Clear the assets folder
+        await file_manager.deleteFolderRecursive(rubbishExtractedFolderName);
 
-        await file_manager.deleteFolderRecursive(targetLocalFrameworkEnginePath).catch((err) => {
-            throw err;
-        })
-
-        //copy the new stuff across
-        await file_manager.copyThing(downloadedMainDirLicensePath, targetLocalFrameworkMainDirLicensePath).catch((err) => {
-            throw err;
-        })
-
-        await file_manager.copyThing(downloadedEngineFolder, targetLocalFrameworkEnginePath).catch((err) => {
-            throw err;
-        })
-
-        //clear the assets folder
-        await file_manager.deleteFolderRecursive(rubbishExtractedFolderName).catch((err) => {
-            throw err;
-        })
-
-        var currentFrameworkVersion = args.currentFrameworkVersion;
-        return currentFrameworkVersion;
+        return args.currentFrameworkVersion;
     }
 
+}
+
+async function updateEngineAndLicense(sourcePath, targetPath) {
+    // Update engine directory
+    const sourceEnginePath = path.join(sourcePath, 'engine');
+    const targetEnginePath = path.join(targetPath, 'engine');
+    await file_manager.deleteFolderRecursive(targetEnginePath);
+    await file_manager.copyThing(sourceEnginePath, targetEnginePath);
+
+    // Update main license file
+    const sourceLicensePath = path.join(sourcePath, 'license.txt');
+    const targetLicensePath = path.join(targetPath, 'license.txt');
+    await file_manager.copyThing(sourceLicensePath, targetLicensePath);
+}
+
+async function updateSelectedItems(sourcePath, targetPath, selections) {
+    for (const item of selections) {
+        if (item === 'engine' || item === 'license.txt') continue; // Already handled
+
+        const sourceItemPath = path.join(sourcePath, item);
+        const targetItemPath = path.join(targetPath, item);
+
+        const isDirectory = await file_manager.isDir(sourceItemPath);
+        if (isDirectory) {
+            await updateDirectory(sourceItemPath, targetItemPath);
+        } else {
+            await file_manager.copyThing(sourceItemPath, targetItemPath);
+        }
+    }
+}
+
+async function updateDirectory(sourceDir, targetDir) {
+    await file_manager.makeADirectory(targetDir);
+    const items = await file_manager.listTheDir(sourceDir);
+    for (const item of items) {
+        const sourceItemPath = path.join(sourceDir, item);
+        const targetItemPath = path.join(targetDir, item);
+
+        const isDirectory = await file_manager.isDir(sourceItemPath);
+        if (isDirectory) {
+            await updateDirectory(sourceItemPath, targetItemPath);
+        } else {
+            await file_manager.copyThing(sourceItemPath, targetItemPath);
+        }
+    }
 }
