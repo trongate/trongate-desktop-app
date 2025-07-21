@@ -58,15 +58,14 @@ function getLocalFrameworkVersion(licenseContents) {
 
     return new Promise((resolve, reject) => {
 
-            var pos = licenseContents.search("Version:")
-            var start = pos + 9 //allow for the word Version: 
-            var end = start+30
-            var localFrameworkVersion = licenseContents.substring(start, end)
+            var localFrameworkVersionMatch = licenseContents.match(/(?<=Version:\s)\d+(\.\d+)*/)
+            
+            if (!localFrameworkVersionMatch) {
+                reject(new Error('Unable to find "Version: " in license.txt'));
+            }
 
-    var newLine = `
-`;
-            var firstAsteriskPos = localFrameworkVersion.search(newLine)
-            localFrameworkVersion = localFrameworkVersion.substring(0, firstAsteriskPos)
+            var localFrameworkVersion = localFrameworkVersionMatch[0];
+
             resolve(localFrameworkVersion)
 
 
