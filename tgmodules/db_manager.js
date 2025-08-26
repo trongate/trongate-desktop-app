@@ -146,7 +146,7 @@ module.exports = {
         var conn = await dbConnect(dbSettings)
 
         //connection is good, now create the new database
-        var query = 'CREATE DATABASE IF NOT EXISTS ' + database
+        var query = "CREATE DATABASE IF NOT EXISTS `" + database + "`";
 
         await executeQuery(query, conn)
         conn.destroy()
